@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="modal" id="modal" >
+        <div class="modal_content" id="modal-content">
+            <div class="modal_body" id="modal-body">
+                <span>Введите корректный Email</span>
+            </div>
+        </div>
+    </div>
+
+    <form class="form_sign-in" id="form_sign-in"  action="">
+        <h2>Авторизация</h2>
+            <input id="input_sign-in_email" type="email" name="login" placeholder="Login:">
+            <input id="input_sign-in_pass" type="password" name="password" placeholder="Password:">
+            <button id="button_sign-in" type="button">АВТОРИЗАЦИЯ</button>
+            <span>Еще нет аккаунта? <a id="link_sign-in" href="#">Регистрация</a></span>
+    </form>
+
+    <form class="form_sign-up not_active" id="form_sign-up" action="">
+        <h2>Регистрация</h2>
+            <input id="input_sign-up_email" type="email" name="login" placeholder="Login:">
+            <input id="input_sign-up_pass" type="password" name="password" placeholder="Password:">
+            <button id="button_sign-up" type="button">РЕГИСТРАЦИЯ</button>
+            <span>Уже есть аккаунт? <a id="link_sign-up" href="#">Авторизация</a></span>
+    </form>
+
+    <script src="index.js"></script>
+</body>
+</html>
