@@ -42,33 +42,39 @@ function change() {
     formSignUp.classList.toggle('not_active')
 }
 
+//Закрытие модалльного окна
+window.onclick = function(event) {
+    let target = event.target
+    if (target == modal || target == modalContent) {
+      modal.style.display = "none";
+    }
+  }
 
 // Регистрация
 document.getElementById('button_sign-up').onclick = registration
-const regexEmail = /^([A-Za-z0-9_\-\.]{2,})+\@([A-Za-z0-9_\-\.]{2,})+\.([A-Za-z]{2,4})/
+
+const regexEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})/
 const modal = document.getElementById('modal')
 const modalContent = document.getElementById('modal-content')
-const modalBody = document.getElementById('modal-body')
+const modalText = document.getElementById('modal-text')
 
 function registration() {
     let emailSignUp = document.getElementById('input_sign-up_email')
     let passSignUp = document.getElementById('input_sign-up_pass')
 
-    if (regexEmail.test(emailSignUp)) {
+    //Проверка email
+    if (regexEmail.test(emailSignUp.value)) {
+        modal.style.display = 'block'
+        modalText.innerText = 'Успешная регистрация!'
         window.localStorage.setItem('login', JSON.stringify(emailSignUp.value))
         window.localStorage.setItem('password', JSON.stringify(passSignUp.value))
     } else {
-        modal.style.display = "block"
+        modal.style.display = 'block'
+        modalText.innerText = 'Введите корректный Email'
     }
 }
 
-//Закрытие модалльного окна
-window.onclick = function(event) {
-    let target = event.target
-    if (target == modal || target == modalContent || target == modalBody) {
-      modal.style.display = "none";
-    }
-  }
+
 
 // Авторизация 
 document.getElementById('button_sign-in').onclick = authorization
@@ -81,14 +87,16 @@ function authorization() {
     let passSignIn = document.getElementById('input_sign-in_pass')
 
     if (JSON.parse(emailStorage) === emailSignIn.value && JSON.parse(passwordStorage) === passSignIn.value) {
-        console.log('Успешная авторизация!')
+        modal.style.display = 'block'
+        modalText.innerText = 'Успешная авторизация!'
     } else {
-        console.log('Попробуйте другой логин и пароль')
+        modal.style.display = 'block'
+        modalText.innerText = 'Попробуйте другой Email или пароль'
     }
     
 }
 
-//Проверка email
+
 
 
 
