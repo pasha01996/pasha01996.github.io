@@ -29,71 +29,69 @@
 // alert(everyFourth);
 
 //Свап авторизации на регистрацию
-const linkAut = document.getElementById('link_sign-in')
-const linkReg = document.getElementById('link_sign-up')
-const formSignIn = document.getElementById('form_sign-in')
-const formSignUp = document.getElementById('form_sign-up')
+const linkSignInEl = document.getElementById('link_sign-in')
+const linkSignUpEl = document.getElementById('link_sign-up')
+const formSignInEl = document.getElementById('form_sign-in')
+const formSignUpEl = document.getElementById('form_sign-up')
 
-linkAut.addEventListener('click', change)
-linkReg.addEventListener('click', change)
+linkSignInEl.addEventListener('click', change)
+linkSignUpEl.addEventListener('click', change)
 
 function change() {
-    formSignIn.classList.toggle('not_active')
-    formSignUp.classList.toggle('not_active')
+    formSignInEl.classList.toggle('not_active')
+    formSignUpEl.classList.toggle('not_active')
 }
 
 //Закрытие модалльного окна
 window.onclick = function(event) {
     let target = event.target
-    if (target == modal || target == modalContent) {
-      modal.style.display = "none";
+    if (target == modalEl || target == modalContentEl) {
+      modalEl.style.display = "none";
     }
   }
 
 // Регистрация
-document.getElementById('button_sign-up').onclick = registration
+document.getElementById('button_sign-up').onclick = checkSignUpData
 
-const regexEmail = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})/
-const modal = document.getElementById('modal')
-const modalContent = document.getElementById('modal-content')
+const regexEmail = /^([A-Za-z0-9_\-\.]{3,})+\@([A-Za-z0-9_\-\.]{3,20})+\.([A-Za-z]{2,4})/
+const regexPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
+const modalEl = document.getElementById('modal')
+const modalContentEl = document.getElementById('modal-content')
 const modalText = document.getElementById('modal-text')
+const emailSignUpEl = document.getElementById('input_sign-up_email')
+const passSignUpEl = document.getElementById('input_sign-up_pass')
 
-function registration() {
-    let emailSignUp = document.getElementById('input_sign-up_email')
-    let passSignUp = document.getElementById('input_sign-up_pass')
-
-    //Проверка email
-    if (regexEmail.test(emailSignUp.value)) {
-        modal.style.display = 'block'
+//Проверка email и пароль
+function checkSignUpData() {
+    if (regexEmail.test(emailSignUpEl.value) && regexPass.test(passSignUpEl.value) ) {
+        modalEl.style.display = 'block'
         modalText.innerText = 'Успешная регистрация!'
-        window.localStorage.setItem('login', JSON.stringify(emailSignUp.value))
-        window.localStorage.setItem('password', JSON.stringify(passSignUp.value))
+        window.localStorage.setItem('login', JSON.stringify(emailSignUpEl.value))
+        window.localStorage.setItem('password', JSON.stringify(passSignUpEl.value))
     } else {
-        modal.style.display = 'block'
-        modalText.innerText = 'Введите корректный Email'
+        modalEl.style.display = 'block'
+        modalText.innerText = 'Введите корректный Email или пароль'
     }
 }
 
 
-
 // Авторизация 
-document.getElementById('button_sign-in').onclick = authorization
+document.getElementById('button_sign-in').onclick = checkSignIpData
 
-function authorization() {
+const emailSignIn = document.getElementById('input_sign-in_email')
+const passSignIn = document.getElementById('input_sign-in_pass')
+
+function checkSignIpData() {
     let emailStorage = window.localStorage.getItem('login')
     let passwordStorage = window.localStorage.getItem('password')
 
-    let emailSignIn = document.getElementById('input_sign-in_email')
-    let passSignIn = document.getElementById('input_sign-in_pass')
-
     if (JSON.parse(emailStorage) === emailSignIn.value && JSON.parse(passwordStorage) === passSignIn.value) {
-        modal.style.display = 'block'
+        modalEl.style.display = 'block'
         modalText.innerText = 'Успешная авторизация!'
     } else {
-        modal.style.display = 'block'
+        modalEl.style.display = 'block'
         modalText.innerText = 'Попробуйте другой Email или пароль'
     }
-    
 }
 
 
