@@ -49,25 +49,34 @@ const modalContentEl = document.querySelector('.modal__content')
 const modalVelueEl = document.querySelector('.modal__text')
 const emailSignUpEl = document.querySelector('.form__input_sign_up_email')
 const passSignUpEl = document.querySelector('.form__input_sign_up_password')
+const regexEmail = /^([A-Za-z0-9_\-\.]{3,})+\@([A-Za-z0-9_\-\.]{3,20})+\.([A-Za-z]{2,4})/
+const regexPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
 
-document.querySelector('.form__button_sign_up').addEventListener('click', () => checkInputData(emailSignUpEl, passSignUpEl, modalEl, modalVelueEl))
+document.querySelector('.form__button_sign_up').addEventListener('click', () => createModalSignUp(checkInputData()))
 
-function checkInputData(inputEmail, inputPass, modalBody, modalText) {
-    
-    let regexEmail = /^([A-Za-z0-9_\-\.]{3,})+\@([A-Za-z0-9_\-\.]{3,20})+\.([A-Za-z]{2,4})/
-    let regexPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
-    
-    if (regexEmail.test(inputEmail.value) && regexPass.test(inputPass.value) ) {
-        modalBody.style.display = 'block'
-        modalText.innerText = 'Успешная регистрация!'
+function checkInputData(inputEmail, inputPass, email, pass) {
+
+    if (email.test(inputEmail.value) && pass.test(inputPass.value)) {
         localStorage.setItem('login', JSON.stringify(inputEmail.value))
         localStorage.setItem('password', JSON.stringify(inputPass.value))
-
+        return true
     } else {
-        modalBody.style.display = 'block'
-        modalVelueEl.innerText = 'Введите корректный Email или пароль'
+        return false
     }
 }
+
+function createModalSignUp(bolean) {
+    if (bolean) {
+        modalBody.style.display = 'block'
+        modalText.innerText = 'Успешная регистрация!'
+    } else {
+        modalBody.style.display = 'block'
+        modalText.innerText = 'Введите корректный Email или пароль'
+    }
+}
+
+
+
 
 
 // SignIn
@@ -93,6 +102,8 @@ function checkSignIpData(inputEmail, inputPassword, modalBody, modalText) {
 }
 
 
+
+
 //Password Viewer
 const passwordViewerEl = document.querySelectorAll('.form__button_password_viewer')
 
@@ -109,6 +120,14 @@ window.onclick = function(event) {
     }
 }
 
+
+// const modal = {
+//     state: modalBody.style.display = 'block',
+//     textSignInTrue: modalText.innerText = 'Успешная авторизация!',
+//     textSignInFalse: modalText.innerText = 'Попробуйте другой Email или пароль',
+//     textSignUpTrue: modalText.innerText = 'Успешная регистрация!',
+//     textSignUpFalse: modalText.innerText = 'Введите корректный Email или пароль',
+// }
 
 //Forgot password
 document.querySelector('.form__link_forgot').addEventListener('click', checkPassword)
