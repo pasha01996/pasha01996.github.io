@@ -43,65 +43,66 @@ function switchForm(elem1, elem2) {
 }
 
 
+// Functions
+
+    const isValidEmail = function(regexEmail, EmailValue) {
+        return regexEmail.test(EmailValue.value)
+    }
+
+    const isValidPassword = function(regexPassword, PasswordValue) {
+        return regexPassword.test(PasswordValue.value)
+    }
+    
+    const addToStorage = function(EmailValue, PasswordValue) {
+        localStorage.setItem('email', JSON.stringify(EmailValue.value))
+        localStorage.setItem('password', JSON.stringify(PasswordValue.value))
+    }
+
+    const createModal = function(modal, modalValue, text) {
+        modal.style.display = 'block'
+        modalValue.innerText = text
+    }
+
+
 // SignUp
 const modalEl = document.querySelector('.modal')
 const modalContentEl = document.querySelector('.modal__content')
 const modalVelueEl = document.querySelector('.modal__text')
-const emailSignUpEl = document.querySelector('.form__input_sign_up_email')
-const passSignUpEl = document.querySelector('.form__input_sign_up_password')
-const regexEmail = /^([A-Za-z0-9_\-\.]{3,})+\@([A-Za-z0-9_\-\.]{3,20})+\.([A-Za-z]{2,4})/
+const imputEmailSignUpEl = document.querySelector('.form__input_sign_up_email')
+const imputPassSignUpEl = document.querySelector('.form__input_sign_up_password')
+const regexEmail = /^([A-Za-z0-9_\-\.]{3,20})+\@([A-Za-z0-9_\-\.]{3,8})+\.([A-Za-z]{2,4})/
 const regexPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
 
-document.querySelector('.form__button_sign_up').addEventListener('click', () => createModalSignUp(checkInputData()))
+document.querySelector('.form__button_sign_up').addEventListener('click', () => checkDataInputSignUp())
 
-function checkInputData(inputEmail, inputPass, email, pass) {
+function checkDataInputSignUp() {
 
-    if (email.test(inputEmail.value) && pass.test(inputPass.value)) {
-        localStorage.setItem('login', JSON.stringify(inputEmail.value))
-        localStorage.setItem('password', JSON.stringify(inputPass.value))
-        return true
+    if (isValidEmail(regexEmail, imputEmailSignUpEl) && isValidPassword(regexPass, imputPassSignUpEl)) {
+        addToStorage(imputEmailSignUpEl, imputPassSignUpEl)
+        createModal(modalEl, modalVelueEl, 'Successful registration')
     } else {
-        return false
+        createModal(modalEl, modalVelueEl, 'Enter correct email or password')
     }
 }
-
-function createModalSignUp(bolean) {
-    if (bolean) {
-        modalBody.style.display = 'block'
-        modalText.innerText = 'Успешная регистрация!'
-    } else {
-        modalBody.style.display = 'block'
-        modalText.innerText = 'Введите корректный Email или пароль'
-    }
-}
-
-
-
 
 
 // SignIn
 const emailSignInEl = document.querySelector('.form__input_sign_in_email')
 const passSignInEl = document.querySelector('.form__input_sign_in_password')
 
-document.querySelector('.form__button_sign_in').addEventListener('click', () => checkSignIpData(emailSignInEl, passSignInEl, modalEl, modalVelueEl))
+document.querySelector('.form__button_sign_in').addEventListener('click', () => checkDataInputSignIn(emailSignInEl, passSignInEl))
 
-function checkSignIpData(inputEmail, inputPassword, modalBody, modalText) {
+function checkDataInputSignIn(inputEmail, inputPassword) {
 
-    let emailStorage = localStorage.getItem('login')
+    let emailStorage = localStorage.getItem('email')
     let passwordStorage = localStorage.getItem('password')
 
     if (JSON.parse(emailStorage) === inputEmail.value && JSON.parse(passwordStorage) === inputPassword.value) {
-        modalBody.style.display = 'block'
-        modalText.innerText = 'Успешная авторизация!'
-        inputEmail.value = ''
-        inputPassword.value = ''
+        createModal(modalEl, modalVelueEl, 'Successful authorization')
     } else {
-        modalBody.style.display = 'block'
-        modalText.innerText = 'Попробуйте другой Email или пароль'
+        createModal(modalEl, modalVelueEl, 'Try a different email or password')
     }
 }
-
-
 
 
 //Password Viewer
@@ -119,15 +120,6 @@ window.onclick = function(event) {
         modalEl.style.display = "none";
     }
 }
-
-
-// const modal = {
-//     state: modalBody.style.display = 'block',
-//     textSignInTrue: modalText.innerText = 'Успешная авторизация!',
-//     textSignInFalse: modalText.innerText = 'Попробуйте другой Email или пароль',
-//     textSignUpTrue: modalText.innerText = 'Успешная регистрация!',
-//     textSignUpFalse: modalText.innerText = 'Введите корректный Email или пароль',
-// }
 
 //Forgot password
 document.querySelector('.form__link_forgot').addEventListener('click', checkPassword)
