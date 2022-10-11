@@ -5,29 +5,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="modal" id="modal" >
-        <div class="modal_content" id="modal-content">
-                <span id="modal-text"></span>
+    
+    <div class="modal">
+        <div class="modal__content">
+                <span class="modal__text"></span>
         </div>
     </div>
 
-    <form class="form_sign-in" id="form_sign-in"  action="">
-        <h2>Авторизация</h2>
-            <input id="input_sign-in_email" type="email" name="login" placeholder="Email:">
-            <input id="input_sign-in_pass" type="password" name="password" placeholder="Password:">
-            <button id="button_sign-in" type="button">АВТОРИЗАЦИЯ</button>
-            <span>Еще нет аккаунта? <a id="link_sign-in" href="#">Регистрация</a></span>
+
+    <form class="form form__sign_in" action="#">
+
+        <h2 class="form__heading">Welcome</h2>
+
+            <input class="form__input form__input_sign_in_email" type="email" placeholder="Email">
+            <div class="form__input_conteiner">
+                <input class="form__input form__input_sign_in_password" type="password" placeholder="Password">
+                <button class="form__button_password_viewer"></button>
+            </div>
+
+            <a class="form__link_forgot" href="#">Forgot password?</a>
+
+            <button class="form__button form__button_sign_in">Log in</button>
+            <span class="form__border">Or</span>
+            <div>
+                <button class="form__button form__button_google">Google</button>
+                <button class="form__button form__button_github">GitHub</button>
+            </div>
+            <span class="form__span">Have no account yet?</span>
+            <button class="form__button form__button_switch">Sign up</button>
     </form>
 
-    <form class="form_sign-up not_active" id="form_sign-up" action="">
-        <h2>Регистрация</h2>
-            <input id="input_sign-up_email" type="email" name="login" placeholder="Email:">
-            <input id="input_sign-up_pass" type="password" name="password" placeholder="Password:">
-            <button id="button_sign-up" type="button">РЕГИСТРАЦИЯ</button>
-            <span>Уже есть аккаунт? <a id="link_sign-up" href="#">Авторизация</a></span>
+
+    <form class="form form__sign_up not_active" action="#">
+
+        <h2 class="form__heading">Welcome</h2>
+
+            <input class="form__input form__input_sign_up_email" type="email" placeholder="Email">
+            <div class="form__input_conteiner">
+                <input class="form__input form__input_sign_up_password" type="password" placeholder="Password">
+                <button class="form__button_password_viewer"></button>
+            </div>
+            <input class="form__input form__input_sign_up_phone" type="tel" placeholder="Phone">
+            <input class="form__input form__input_sign_up_country" type="text" placeholder="Country">
+
+
+            <button class="form__button form__button_sign_up">Registration</button>
+            <span class="form__span">Have an account?</span>
+            <button class="form__button form__button_switch">Sign in</button>
     </form>
 
     <script src="index.js"></script>
