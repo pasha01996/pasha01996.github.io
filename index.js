@@ -45,12 +45,8 @@ function switchForm(elem1, elem2) {
 
 // Functions
 
-    const isValidEmail = function(regexEmail, EmailValue) {
-        return regexEmail.test(EmailValue.value)
-    }
-
-    const isValidPassword = function(regexPassword, PasswordValue) {
-        return regexPassword.test(PasswordValue.value)
+    const isValid = function(regexp, input) {
+        return regexp.test(input.value)
     }
     
     const addToStorage = function(EmailValue, PasswordValue) {
@@ -77,7 +73,7 @@ document.querySelector('.form__button_sign_up').addEventListener('click', () => 
 
 function checkDataInputSignUp() {
 
-    if (isValidEmail(regexEmail, imputEmailSignUpEl) && isValidPassword(regexPass, imputPassSignUpEl)) {
+    if (isValid(regexEmail, imputEmailSignUpEl) && isValid(regexPass, imputPassSignUpEl)) {
         addToStorage(imputEmailSignUpEl, imputPassSignUpEl)
         createModal(modalEl, modalVelueEl, 'Successful registration')
     } else {
