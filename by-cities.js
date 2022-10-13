@@ -1,4 +1,4 @@
-[
+const belarus  = 
     {
         "name": "Беларусь",
         "regions": [
@@ -839,4 +839,4 @@
             }
         ]
     }
-]
+    export default belarus

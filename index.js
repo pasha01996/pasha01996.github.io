@@ -27,6 +27,7 @@
 
 // alert(everySecond);
 // alert(everyFourth);
+import belarus from "./by-cities.js"
 
 
 //Switch singIN/singUp
@@ -48,6 +49,16 @@ function switchForm(elem1, elem2) {
     const isValid = function(regexp, input) {
         return regexp.test(input.value)
     }
+
+    const isValidCity = function(array, input) {
+        // let count = 0
+        // for (let i = 0; i < array.lenght; i++) {
+        //    array[i].toLowerCase() === (input.value).toLowerCase() ? count + 1 : false
+        // }
+        // return count > 0
+        return array.includes(input.value)
+
+    }
     
     const addToStorage = function(EmailValue, PasswordValue) {
         localStorage.setItem('email', JSON.stringify(EmailValue.value))
@@ -68,16 +79,20 @@ const imputEmailSignUpEl = document.querySelector('.form__input_sign_up_email')
 const imputPassSignUpEl = document.querySelector('.form__input_sign_up_password')
 const regexEmail = /^([A-Za-z0-9_\-\.]{3,20})+\@([A-Za-z0-9_\-\.]{3,8})+\.([A-Za-z]{2,4})/
 const regexPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
+const cityImputEl = document.querySelector('.form__input_sign_up_country')
+const cities = ((belarus.regions.map(e => e.cities)).flat(10)).map(e => e.name)
 
 document.querySelector('.form__button_sign_up').addEventListener('click', () => checkDataInputSignUp())
 
 function checkDataInputSignUp() {
 
-    if (isValid(regexEmail, imputEmailSignUpEl) && isValid(regexPass, imputPassSignUpEl)) {
+    if (isValid(regexEmail, imputEmailSignUpEl) && isValid(regexPass, imputPassSignUpEl) && isValidCity(cities, cityImputEl)) {
         addToStorage(imputEmailSignUpEl, imputPassSignUpEl)
         createModal(modalEl, modalVelueEl, 'Successful registration')
+        console.log(isValidCity(cities, cityImputEl))
     } else {
         createModal(modalEl, modalVelueEl, 'Enter correct email or password')
+        console.log(isValidCity(cities, cityImputEl))
     }
 }
 
@@ -104,10 +119,10 @@ function checkDataInputSignIn(inputEmail, inputPassword) {
 //Password Viewer
 const passwordViewerEl = document.querySelectorAll('.form__button_password_viewer')
 
-passwordViewerEl[0].onmousedown = () => passSignInEl.type = 'text'
-passwordViewerEl[0].onmouseup = () => passSignInEl.type = 'password'
-passwordViewerEl[1].onmousedown = () => passSignUpEl.type = 'text'
-passwordViewerEl[1].onmouseup = () => passSignUpEl.type = 'password'
+passwordViewerEl[0].onmousedown = () => imputPassSignUpEl.type = 'text'
+passwordViewerEl[0].onmouseup = () => imputPassSignUpEl.type = 'password'
+passwordViewerEl[1].onmousedown = () => imputPassSignUpEl.type = 'text'
+passwordViewerEl[1].onmouseup = () => imputPassSignUpEl.type = 'password'
 
 
 //Close modal window
@@ -126,5 +141,5 @@ function checkPassword() {
     
     modalEl.style.display = 'block'
     modalVelueEl.innerText = `Your Email: ${a} 
-                            Your password: ${b}`
+                              Your password: ${b}`
 }
