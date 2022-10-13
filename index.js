@@ -51,18 +51,14 @@ function switchForm(elem1, elem2) {
     }
 
     const isValidCity = function(array, input) {
-        // let count = 0
-        // for (let i = 0; i < array.lenght; i++) {
-        //    array[i].toLowerCase() === (input.value).toLowerCase() ? count + 1 : false
-        // }
-        // return count > 0
-        return array.includes(input.value)
-
+        return array.map(e => e.toLowerCase()).includes((input.value).toLowerCase())
     }
-    
-    const addToStorage = function(EmailValue, PasswordValue) {
-        localStorage.setItem('email', JSON.stringify(EmailValue.value))
-        localStorage.setItem('password', JSON.stringify(PasswordValue.value))
+
+    const addToStorage = function(emailValue, passwordValue, phoneValue, cityValue) {
+        localStorage.setItem('email', JSON.stringify(emailValue.value))
+        localStorage.setItem('password', JSON.stringify(passwordValue.value))
+        localStorage.setItem('phone', JSON.stringify(phoneValue.value))
+        localStorage.setItem('city', JSON.stringify(cityValue.value))
     }
 
     const createModal = function(modal, modalValue, text) {
@@ -75,24 +71,24 @@ function switchForm(elem1, elem2) {
 const modalEl = document.querySelector('.modal')
 const modalContentEl = document.querySelector('.modal__content')
 const modalVelueEl = document.querySelector('.modal__text')
-const imputEmailSignUpEl = document.querySelector('.form__input_sign_up_email')
-const imputPassSignUpEl = document.querySelector('.form__input_sign_up_password')
+const inputEmailSignUpEl = document.querySelector('.form__input_sign_up_email')
+const inputPassSignUpEl = document.querySelector('.form__input_sign_up_password')
+const inputCitySignUpEl = document.querySelector('.form__input_sign_up_country')
+const inputPhoneSignUpEl = document.querySelector('.form__input_sign_up_phone')
 const regexEmail = /^([A-Za-z0-9_\-\.]{3,20})+\@([A-Za-z0-9_\-\.]{3,8})+\.([A-Za-z]{2,4})/
 const regexPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
-const cityImputEl = document.querySelector('.form__input_sign_up_country')
+const regexPhone = /(\+)(\d){12}/
 const cities = ((belarus.regions.map(e => e.cities)).flat(10)).map(e => e.name)
 
 document.querySelector('.form__button_sign_up').addEventListener('click', () => checkDataInputSignUp())
 
 function checkDataInputSignUp() {
 
-    if (isValid(regexEmail, imputEmailSignUpEl) && isValid(regexPass, imputPassSignUpEl) && isValidCity(cities, cityImputEl)) {
-        addToStorage(imputEmailSignUpEl, imputPassSignUpEl)
+    if (isValid(regexEmail, inputEmailSignUpEl) && isValid(regexPass, inputPassSignUpEl) && isValid(regexPhone, inputPhoneSignUpEl) && isValidCity(cities, inputCitySignUpEl)) {
+        addToStorage(inputEmailSignUpEl, inputPassSignUpEl, inputPhoneSignUpEl, inputCitySignUpEl)
         createModal(modalEl, modalVelueEl, 'Successful registration')
-        console.log(isValidCity(cities, cityImputEl))
     } else {
         createModal(modalEl, modalVelueEl, 'Enter correct email or password')
-        console.log(isValidCity(cities, cityImputEl))
     }
 }
 
@@ -119,10 +115,10 @@ function checkDataInputSignIn(inputEmail, inputPassword) {
 //Password Viewer
 const passwordViewerEl = document.querySelectorAll('.form__button_password_viewer')
 
-passwordViewerEl[0].onmousedown = () => imputPassSignUpEl.type = 'text'
-passwordViewerEl[0].onmouseup = () => imputPassSignUpEl.type = 'password'
-passwordViewerEl[1].onmousedown = () => imputPassSignUpEl.type = 'text'
-passwordViewerEl[1].onmouseup = () => imputPassSignUpEl.type = 'password'
+passwordViewerEl[0].onmousedown = () => inputPassSignUpEl.type = 'text'
+passwordViewerEl[0].onmouseup = () => inputPassSignUpEl.type = 'password'
+passwordViewerEl[1].onmousedown = () => inputPassSignUpEl.type = 'text'
+passwordViewerEl[1].onmouseup = () => inputPassSignUpEl.type = 'password'
 
 
 //Close modal window
