@@ -35,6 +35,7 @@ const Form = function(id) {
 //modal
     this.modal = id.children[2]
     this.modalText = this.modal.children[0].children[0]
+    this.text = ''
 
 //methods
     this.isValidEmail = () => moduls.isValidSignUp(this.regexEmail, this.inputSignUpEmail)
@@ -47,24 +48,24 @@ const Form = function(id) {
     this.isValidSignIn = () => moduls.isValidSignIn(this.inputSignInEmail, this.inputSignInPass)
 
     this.addToStorage = () => moduls.addToStorage(this.inputSignUpEmail, this.inputSignUpPass, this.inputSignUpPhone, this.inputSignUpCity)
-
-    this.createModal = () => moduls.createModal(this.modal, this.modalText, 'Функционал текста реализован не полностью...')
-
+    
+    this.createModal = () => moduls.createModal(this.modal, this.modalText, this.text)
+   
     this.checkPassword = () => moduls.checkPassword(this.modal, this.modalText)
 
     this.closeModal = () => moduls.closeModal(event, this.modal, this.modalText)
 
-    this.authorization = () => this.isValidSignIn() ? this.createModal('Еще не работает') : this.createModal('Еще не работает')
+    this.authorization = () => this.isValidSignIn() ? this.createModal(this.text = 'Successful authorization') : this.createModal(this.text = 'Try another Email or Password')
 
     this.registration = () => {
         if (this.isValidEmail() && this.isValidPass() && this.isValidPhone() && this.isValidCity()) {
             this.addToStorage()
-            this.createModal('Еще не работает')
+            this.createModal(this.text = "Successful registration")
             console.log('Yes')
         } else {
-            this.createModal(this.modal, this.modalText, 'Еще не работает')
+            this.createModal(this.text = 'Enter correct Email or Password')
             console.log('No')
-        }
+        }   
     }
 
 //init
