@@ -27,6 +27,7 @@ const Form = function(id) {
     // this.regexPhone = /(\+)(\d){12}/
     // this.regexCity = /([A-Za-z\.]{3,20})/
 
+//for better check in browser
     this.regexEmail = /([A-Za-z\.]{2,20})+\@([A-Za-z\.]{2,20})/
     this.regexPass = /([A-Za-z\.]{3,20})/
     this.regexPhone = /([A-Za-z\.]{3,20})/
@@ -35,30 +36,7 @@ const Form = function(id) {
     this.modal = id.children[2]
     this.modalText = this.modal.children[0].children[0]
 
-
-
-
-    this.init = function() {
-        const that = this
-
-        this.buttonSignInSwitch.addEventListener('click', (e) => that.switchForm(e))
-        this.buttonSignUpSwitch.addEventListener('click', (e) => that.switchForm(e))
-
-        this.buttonSignUp.addEventListener('click', () => that.registration())
-        this.buttonSignIn.addEventListener('click', () => that.authorization())
-
-        this.inputSignInForgotPass.addEventListener('click', () => that.checkPassword())
-
-        this.modal.addEventListener('click', () => that.closeModal())
-
-        this.inputSignInPassViewer.addEventListener('mousedown', () => this.inputSignInPass.type = 'text' )
-        this.inputSignInPassViewer.addEventListener('mouseup', () => this.inputSignInPass.type = 'password')
-        this.inputSignUpPassViewer.addEventListener('mousedown', () => this.inputSignUpPass.type = 'text')
-        this.inputSignUpPassViewer.addEventListener('mouseup', () => this.inputSignUpPass.type = 'password')
-    }
-
-
-    //methods
+//methods
     this.isValidEmail = () => moduls.isValidSignUp(this.regexEmail, this.inputSignUpEmail)
     this.isValidPass = () => moduls.isValidSignUp(this.regexPass, this.inputSignUpPass)
     this.isValidPhone = () => moduls.isValidSignUp(this.regexPhone, this.inputSignUpPhone)
@@ -87,6 +65,26 @@ const Form = function(id) {
             this.createModal(this.modal, this.modalText, 'Еще не работает')
             console.log('No')
         }
+    }
+
+//init
+    this.init = function() {
+        const that = this
+
+        this.buttonSignInSwitch.addEventListener('click', (e) => that.switchForm(e))
+        this.buttonSignUpSwitch.addEventListener('click', (e) => that.switchForm(e))
+
+        this.buttonSignUp.addEventListener('click', () => that.registration())
+        this.buttonSignIn.addEventListener('click', () => that.authorization())
+
+        this.inputSignInForgotPass.addEventListener('click', () => that.checkPassword())
+
+        this.modal.addEventListener('click', () => that.closeModal())
+
+        this.inputSignInPassViewer.addEventListener('mousedown', () => this.inputSignInPass.type = 'text' )
+        this.inputSignInPassViewer.addEventListener('mouseup', () => this.inputSignInPass.type = 'password')
+        this.inputSignUpPassViewer.addEventListener('mousedown', () => this.inputSignUpPass.type = 'text')
+        this.inputSignUpPassViewer.addEventListener('mouseup', () => this.inputSignUpPass.type = 'password')
     }
 }
 
