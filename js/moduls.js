@@ -10,11 +10,8 @@ isValidSignUp: function(regexp, input) {
     return regexp.test(input.value)
 },
 
-addToStorage: function(emailValue, passwordValue, phoneValue, cityValue) {
-    localStorage.setItem('email', JSON.stringify(emailValue.value))
-    localStorage.setItem('password', JSON.stringify(passwordValue.value))
-    localStorage.setItem('phone', JSON.stringify(phoneValue.value))
-    localStorage.setItem('city', JSON.stringify(cityValue.value))
+addToStorage: function(name, input) {
+    localStorage.setItem(name, JSON.stringify(input.value))
 },
 
 isValidSignIn: function(inputEmail, inputPass) {
