@@ -11,55 +11,55 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <div class="modal">
-        <div class="modal__content">
-                <span class="modal__text"></span>
+
+    <div id="conteiner">
+        <form class="form form__sign_in not_active" id="formSingIn" action="#">
+
+            <h2 class="form__heading">Welcome</h2>
+
+                <input class="form__input form__input_sign_in_email" id="emailSingIn" type="email" placeholder="Email">
+                <div class="form__input_conteiner">
+                    <input class="form__input form__input_sign_in_password" id="passwordSingIn" type="password" placeholder="Password">
+                    <button class="form__button_password_viewer" data-viewer-password></button>
+                </div>
+
+                <button class="form__button_forgot" id="buttonForgotPass" href="#">Forgot password?</button>
+
+                <button class="form__button form__button_sign_in" id="buttonConfirmSingIn">Log in</button>
+                <span class="form__border">Or</span>
+                <div>
+                    <button class="form__button form__button_google">Google</button>
+                    <button class="form__button form__button_github">GitHub</button>
+                </div>
+                <span class="form__span">Have no account yet?</span>
+                <button class="form__button form__button_switch" id="button2" data-switch-form>Sign up</button>
+        </form>
+
+
+        <form class="form form__sign_up " id="formSingUp" action="#">
+
+            <h2 class="form__heading">Welcome</h2>
+
+                <input class="form__input form__input_sign_up_email" id="emailSingUp" type="email" placeholder="Email">
+                <div class="form__input_conteiner">
+                    <input class="form__input form__input_sign_up_password" id="passwordSingUp" type="password" placeholder="Password">
+                    <button class="form__button_password_viewer" data-viewer-password></button>
+                </div>
+                <input class="form__input form__input_sign_up_phone" id="phoneSignUp" type="tel" placeholder="Phone">
+                <input class="form__input form__input_sign_up_country" id="citySignUp" type="text" placeholder="Country">
+
+
+                <button class="form__button form__button_sign_up" id="buttonConfirmSingUp">Registration</button>
+                <span class="form__span">Have an account?</span>
+                <button class="form__button form__button_switch" id="button1" data-switch-form>Sign in</button>
+        </form>
+        <div class="modal" id="modalConteiner">
+            <div class="modal__content">
+                    <span class="modal__text" id="modalText"></span>
+            </div>
         </div>
     </div>
 
-
-    <form class="form form__sign_in" action="#">
-
-        <h2 class="form__heading">Welcome</h2>
-
-            <input class="form__input form__input_sign_in_email" type="email" placeholder="Email">
-            <div class="form__input_conteiner">
-                <input class="form__input form__input_sign_in_password" type="password" placeholder="Password">
-                <button class="form__button_password_viewer"></button>
-            </div>
-
-            <a class="form__link_forgot" href="#">Forgot password?</a>
-
-            <button class="form__button form__button_sign_in">Log in</button>
-            <span class="form__border">Or</span>
-            <div>
-                <button class="form__button form__button_google">Google</button>
-                <button class="form__button form__button_github">GitHub</button>
-            </div>
-            <span class="form__span">Have no account yet?</span>
-            <button class="form__button form__button_switch">Sign up</button>
-    </form>
-
-
-    <form class="form form__sign_up not_active" action="#">
-
-        <h2 class="form__heading">Welcome</h2>
-
-            <input class="form__input form__input_sign_up_email" type="email" placeholder="Email">
-            <div class="form__input_conteiner">
-                <input class="form__input form__input_sign_up_password" type="password" placeholder="Password">
-                <button class="form__button_password_viewer"></button>
-            </div>
-            <input class="form__input form__input_sign_up_phone" type="tel" placeholder="Phone">
-            <input class="form__input form__input_sign_up_country" type="text" placeholder="Country">
-
-
-            <button class="form__button form__button_sign_up">Registration</button>
-            <span class="form__span">Have an account?</span>
-            <button class="form__button form__button_switch">Sign in</button>
-    </form>
-
-    <script type="module" src="index.js"></script>
+    <script type="module" src="./js/index.js"></script>
 </body>
 </html>
