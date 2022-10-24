@@ -13,7 +13,7 @@
 <body>
 
     <div id="conteiner">
-        <form class="form form__sign_in" id="formSingIn" action="#">
+        <form class="form form__sign_in not_active" id="formSingIn" action="#">
 
             <h2 class="form__heading">Welcome</h2>
 
@@ -32,11 +32,11 @@
                     <button class="form__button form__button_github">GitHub</button>
                 </div>
                 <span class="form__span">Have no account yet?</span>
-                <button class="form__button form__button_switch" data-switch-form>Sign up</button>
+                <button class="form__button form__button_switch" id="button2" data-switch-form>Sign up</button>
         </form>
 
 
-        <form class="form form__sign_up not_active" id="formSingUp" action="#">
+        <form class="form form__sign_up " id="formSingUp" action="#">
 
             <h2 class="form__heading">Welcome</h2>
 
@@ -51,11 +51,11 @@
 
                 <button class="form__button form__button_sign_up" id="buttonConfirmSingUp">Registration</button>
                 <span class="form__span">Have an account?</span>
-                <button class="form__button form__button_switch" data-switch-form>Sign in</button>
+                <button class="form__button form__button_switch" id="button1" data-switch-form>Sign in</button>
         </form>
-        <div class="modal">
+        <div class="modal" id="modalConteiner">
             <div class="modal__content">
-                    <span class="modal__text"></span>
+                    <span class="modal__text" id="modalText"></span>
             </div>
         </div>
     </div>
