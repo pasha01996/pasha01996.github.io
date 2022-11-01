@@ -9,15 +9,25 @@ class Form {
     this.regExp = options.regExp
     this.btn = options.btn
     this.input = options.input
-    
     }
   
     isValidSignIn = (input, storage) => moduls.isValidSignIn(input, storage)
-    isValidSignUp = (input, regex) => moduls.isValidSignUp(input, regex)
-    addToStorage = (input, name) => moduls.addToStorage(input, name)
+    isValidSignUp = (regex, input) => moduls.isValidSignUp(regex, input)
     switchForm = () => moduls.switchForm(this.form.signIn, this.form.signUp)
     createModal = () => moduls.createModal(this.modal.conteiner, this.modal.text, this.modal.textValue)
     closeModal = () => moduls.closeModal(event, this.modal.conteiner, this.modal.text)
+
+    getDataStorage(name) {
+        return JSON.parse(localStorage.getItem(name) || '[]') 
+    }
+
+    addToStorage(name, obj) {
+        let storage = this.getDataStorage(name)
+        let array = Object.entries(obj)
+        array.forEach(e => e[1] = e[1].value)
+        storage.push(array)
+        localStorage.setItem(name, JSON.stringify(storage))
+    }
 
     viePass() {
         this.input.signIn.password.type = 'text'
@@ -34,10 +44,7 @@ class Form {
             this.isValidSignUp(this.regExp.password, this.input.signUp.password) &&
             this.isValidSignUp(this.regExp.phone, this.input.signUp.phone) &&
             this.isValidSignUp(this.regExp.city, this.input.signUp.city)) {
-                this.addToStorage(this.name.email, this.input.signUp.email)
-                this.addToStorage(this.name.password, this.input.signUp.password)
-                this.addToStorage(this.name.phone, this.input.signUp.phone)
-                this.addToStorage(this.name.city, this.input.signUp.city)
+                this.addToStorage('registration', this.input.signUp)
                 this.createModal(this.modal.textValue ='Successful registration')
             } else {
                 this.createModal(this.modal.textValue = 'Enter correct Email or Password')

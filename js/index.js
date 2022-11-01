@@ -17,10 +17,10 @@ const buttonsSwitchForm = document.querySelectorAll('button[data-switch-form]')
 const modalConteiner = document.querySelector('#modalConteiner')
 const modalText = document.querySelector('#modalText')
 // for test    
-const regexEmail = /([A-Za-z\.]{2,20})+\@([A-Za-z\.]\d{2,20})/
-const regexPassword = /([A-Za-z\.]\d{20})/
-const regexPhone = /([A-Za-z\.]\d{20})/
-const regexCity = /([A-Za-z\.]\d{20})/
+const regexEmail = /([A-Za-z\.]{2,20})+\@([A-Za-z\.]{2,20})/
+const regexPassword = /([A-Za-z\.]{2,20})/
+const regexPhone = /([A-Za-z\.]{2,20})/
+const regexCity = /([A-Za-z\.]{2,20})/
 //regex
     // regexEmail = /^([A-Za-z0-9_\-\.]{3,20})+\@([A-Za-z0-9_\-\.]{3,8})+\.([A-Za-z]{2,4})/
     // regexPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
