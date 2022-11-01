@@ -27,20 +27,7 @@ const regexCity = /([A-Za-z\.]{2,20})/
     // regexPhone = /(\+)(\d){12}/
     // regexCity = /([A-Za-z\.]{3,20})/
 
-// const formOption = {
-//     form: {signIn: formSignInEl, signUp: formSignUpEl},
-//     email: {name: 'email', validations: [minLengh(8), regexEmail], inputSignIn: inputEmailSingInEl, inputSignUp: inputEmailSingUpEl},
-//     password: {name: 'password', validations: [minLengh(8), regexPassword], inputSignIn: inputPasswordSingInEl, inputSignUp: inputPasswordSingUpEl},
-//     phone: {name: 'phone', validations: [minLengh(10), regexPhone], input: inputPhoneSignUpEl},
-//     city: {name: 'city', validations: [minLengh(15), regexCity], input: inputCitySignUpEl},
-//     buttonConfirm: {signIn: buttonConfirmSingInEl, signUp: buttonConfirmSingUpEl},
-//     buttonForgot: buttonForgotDataEl,
-//     buttonsViePass: buttonsViewerPasswordEl,
-//     buttonsSwitch: buttonsSwitchForm,
-//     modal: {conteiner: modalConteiner, text: modalText, textValue: ''}
-// }
-
-const formOption2 = {
+const formOption = {
     modal: {conteiner: modalConteiner, text: modalText, textValue: ''},
     form: {signIn: formSignInEl, signUp: formSignUpEl},
     name: {email: 'email', password: 'password', phone: 'phone', city: 'city'},
@@ -57,13 +44,13 @@ const formOption2 = {
     }
 }
 
-
-const form = new Form(formOption2)
+const form = new Form(formOption)
 
 form.btn.switch.forEach(e => e.addEventListener('click', () => form.switchForm()))
 form.btn.confirm.signUp.addEventListener('click', () => form.registration())
 form.btn.confirm.signIn.addEventListener('click', () => form.authorization())
 form.btn.viePass.forEach(e => e.addEventListener('mousedown', () => form.viePass()))
 form.btn.viePass.forEach(e => e.addEventListener('mouseup', () => form.hidePass()))
-form.modal.conteiner.addEventListener('click', () => form.closeModal())
+form.modal.conteiner.addEventListener('click', () => form.closeModal(event))
 
+console.log(form.input.signIn.email)

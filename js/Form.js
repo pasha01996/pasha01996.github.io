@@ -1,6 +1,3 @@
-import moduls from "./moduls.js"
-
-
 class Form {
     constructor(options){
     this.modal = options.modal
@@ -11,11 +8,36 @@ class Form {
     this.input = options.input
     }
   
-    isValidSignIn = (input, storage) => moduls.isValidSignIn(input, storage)
-    isValidSignUp = (regex, input) => moduls.isValidSignUp(regex, input)
-    switchForm = () => moduls.switchForm(this.form.signIn, this.form.signUp)
-    createModal = () => moduls.createModal(this.modal.conteiner, this.modal.text, this.modal.textValue)
-    closeModal = () => moduls.closeModal(event, this.modal.conteiner, this.modal.text)
+    isValidSignIn () {
+        let inputEmail = this.input.signIn.email.value
+        let inputPass = this.input.signIn.password.value
+        let array = JSON.parse(localStorage.getItem('registration'))
+        let findElem = array.find(e => e[0][1] === inputEmail && e[1][1] === inputPass)
+        console.log(findElem)
+        if (findElem != undefined) {
+            return true
+        } else {return false}
+    }
+
+    isValidSignUp (regex, input) {
+        return regex.test(input.value)
+    }
+
+    switchForm () {
+        this.form.signUp.classList.toggle('not_active')
+        this.form.signIn.classList.toggle('not_active')
+    }
+
+    createModal (text) {
+        this.modal.conteiner.style.display = 'block'
+        this.modal.text.innerText = text
+    }
+
+    closeModal(event) {
+        if (event.target == this.modal.conteiner || event.target == this.modal.text) {
+            this.modal.conteiner.style.display = "none"
+        }
+    }
 
     getDataStorage(name) {
         return JSON.parse(localStorage.getItem(name) || '[]') 
@@ -45,17 +67,17 @@ class Form {
             this.isValidSignUp(this.regExp.phone, this.input.signUp.phone) &&
             this.isValidSignUp(this.regExp.city, this.input.signUp.city)) {
                 this.addToStorage('registration', this.input.signUp)
-                this.createModal(this.modal.textValue ='Successful registration')
+                this.createModal('Successful registration')
             } else {
-                this.createModal(this.modal.textValue = 'Enter correct Email or Password')
+                this.createModal('Enter correct Email or Password')
             }
     }
 
     authorization() { 
         if(this.isValidSignIn()) {
-            this.createModal(this.modal.textValue ='Successful authorization')
+            this.createModal('Successful authorization')
         } else {
-            this.createModal(this.modal.textValue = 'Try another Email or Password')
+            this.createModal('Try another Email or Password')
         } 
     }
 }
