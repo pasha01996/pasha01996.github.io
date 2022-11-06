@@ -3,15 +3,14 @@ body
     font-weight: normal
     margin-top: 50px
     background: rgba(57, 73, 171)
-    display: flex
+    display: grid
     justify-content: center
 
 
-//Форма
+//form
 .form
     border-radius: 20px
-    padding: 90px 65px 10px 65px
-    margin-left: 50px
+    padding: 30px 50px 0px 50px
     background-color: white
     display: flex
     flex-shrink: 0
@@ -137,13 +136,13 @@ body
         color: #828282
         font-size: 14px
 
-//Класс для переключения между формами
+//class for forms
 .not_active 
     display: none
     position: absolute
     
 
-//Модальное окно
+//modal
 .modal 
     display: none
     position: absolute
@@ -172,3 +171,18 @@ body
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
     animation-name: animatetop
     animation-duration: 0.4s
+
+
+//table
+.table_conteiner
+    border-radius: 10px
+    display: flex
+    flex-direction: column
+    margin-bottom: 20px
+    background-color: white
+.table_item
+    display: flex
+    justify-content: space-between
+    padding: 20px
+    
+    

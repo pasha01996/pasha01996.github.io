@@ -1,4 +1,10 @@
-import Form from "./Form.js"
+import {Form} from "./Form.js"
+import {Table} from "./Form.js"
+
+
+
+
+
 
 const formSignInEl = document.querySelector('#formSingIn')
 const formSignUpEl = document.querySelector('#formSingUp')
@@ -46,11 +52,54 @@ const formOption = {
 
 const form = new Form(formOption)
 
+
+
+//table
+
+const tableBodyEl = document.querySelectorAll('[data-body]')
+const tableBtnEditEl = document.querySelector('#tableBody')
+const tableBtnDeleteEl = document.querySelector('#tableBtnDelete')
+const tableBtnViewEl = document.querySelector('.table_btn_view')
+const tableConteinerEl = document.querySelector('#tableConteiner')
+
+const tableOption = {
+    conteiner: tableConteinerEl,
+    body: tableBodyEl,
+    btn: {edit: tableBtnEditEl, delete: tableBtnDeleteEl, view: tableBtnViewEl},
+    modal: {conteiner: modalConteiner, text: modalText, textValue: ''}
+}
+
+const table = new Table(tableOption)
+
+
+
+
+
 form.btn.switch.forEach(e => e.addEventListener('click', () => form.switchForm()))
+
 form.btn.confirm.signUp.addEventListener('click', () => form.registration())
+
 form.btn.confirm.signIn.addEventListener('click', () => form.authorization())
 form.btn.viePass.forEach(e => e.addEventListener('mousedown', () => form.viePass()))
 form.btn.viePass.forEach(e => e.addEventListener('mouseup', () => form.hidePass()))
 form.modal.conteiner.addEventListener('click', () => form.closeModal(event))
 
-console.log(form.input.signIn.email)
+
+
+document.body.addEventListener('load', table.loadTable())
+form.btn.confirm.signUp.addEventListener('click', () => table.addInTable())
+table.conteiner.addEventListener('click', event => {
+    if (event.target.dataset.table_btn_view) {
+        table.viewTableItem()
+    }
+})
+table.conteiner.addEventListener('click', event => {
+    if (event.target.dataset.table_btn_delete) {
+        table.deleteTableItem()
+        location.reload()
+    }
+})
+
+
+
+

@@ -1,4 +1,6 @@
-class Form {
+let stateOfRegistration = false
+
+export class Form {
     constructor(options){
     this.modal = options.modal
     this.form = options.form
@@ -46,7 +48,7 @@ class Form {
     addToStorage(name, obj) {
         let storage = this.getDataStorage(name)
         let array = Object.entries(obj)
-        array.forEach(e => e[1] = e[1].value)
+        array.forEach(e => e = e[1] = e[1].value)
         storage.push(array)
         localStorage.setItem(name, JSON.stringify(storage))
     }
@@ -68,8 +70,10 @@ class Form {
             this.isValidSignUp(this.regExp.city, this.input.signUp.city)) {
                 this.addToStorage('registration', this.input.signUp)
                 this.createModal('Successful registration')
+                stateOfRegistration = true
             } else {
                 this.createModal('Enter correct Email or Password')
+                stateOfRegistration = false
             }
     }
 
@@ -83,4 +87,90 @@ class Form {
 }
 
 
-export default Form
+
+
+export class Table {
+    constructor(options) {
+        this.conteiner = options.conteiner
+        this.btn = options.btn
+        this.modal = options.modal
+    }
+
+    updateStorage(key, item) {
+        localStorage.setItem(key, JSON.stringify(item))
+    }
+
+    createModal(text) {
+        this.modal.conteiner.style.display = 'block'
+        this.modal.text.innerText = text
+    }
+
+    getStorage(key) {
+        return JSON.parse(localStorage.getItem(key))
+    }
+
+    createItemTable() {
+        return this.conteiner.insertAdjacentHTML('afterbegin', `
+            <div class="table_item">
+                <div class="table_title">user:</div>
+                <span class="table_body" data-body></span>
+                <div class="table_buttons">
+                    <button class="table_btn_edit" id="tableBtnEdit">edit</button>
+                    <button class="table_btn_delete" data-table_btn_delete="true">delete</button>
+                    <button class="table_btn_view" data-table_btn_view="true">view</button>
+                </div>
+            </div>
+        `)
+    }
+
+    loadTable() {
+        const array = this.getStorage('registration')
+        if (array !== null) {
+            for(let i = 0; i < array.length; i++) {
+                this.createItemTable()
+                this.conteiner.firstElementChild.childNodes[3].innerText = array[i][0][1]
+            }
+        }  
+    }
+
+    addInTable() {
+        if (stateOfRegistration) {
+            const array = this.getStorage('registration')
+            const item = array[array.length - 1][0][1]
+            this.createItemTable()
+            this.conteiner.firstElementChild.childNodes[3].innerText = item
+        }   
+    }
+    
+    viewTableItem() {
+        const array = this.getStorage('registration')
+        const name = event.target.parentElement.previousElementSibling.innerText
+        const findItem = array.find(e => e[0][1] === name)
+        this.createModal(findItem.join('\n').replaceAll(',', ': '))
+        
+    }
+
+    deleteTableItem() {
+        const array = this.getStorage('registration')
+        const name = event.target.parentElement.previousElementSibling.innerText
+        const findItem = array.findIndex(e => e[0][1] === name)
+        array.splice(findItem, 1)
+        console.log(array)
+        this.updateStorage('registration', array)
+    }
+
+    editTableItem() {
+        
+    }
+
+
+    FORTEST() {
+        
+    }
+    
+       
+    }
+
+
+
+
