@@ -23,6 +23,7 @@ const buttonsSwitchForm = document.querySelectorAll('button[data-switch-form]')
 const modalConteiner = document.querySelector('#modalConteiner')
 const modalText = document.querySelector('#modalText')
 const modalContent = document.querySelector('#modalContent')
+const modalBtn = document.querySelector('#modalBnt')
 // for test    
 const regexEmail = /([A-Za-z\.]{2,20})+\@([A-Za-z\.]{2,20})/
 const regexPassword = /([A-Za-z\.]{2,20})/
@@ -35,7 +36,7 @@ const regexCity = /([A-Za-z\.]{2,20})/
     // regexCity = /([A-Za-z\.]{3,20})/
 
 const formOption = {
-    modal: {conteiner: modalConteiner, text: modalText, textValue: ''},
+    modal: {conteiner: modalConteiner, content: modalContent, btn: modalBtn, text: modalText, textValue: ''},
     form: {signIn: formSignInEl, signUp: formSignUpEl},
     name: {email: 'email', password: 'password', phone: 'phone', city: 'city'},
     regExp: {email: regexEmail, password: regexPassword, phone: regexPhone, city: regexCity},
@@ -84,7 +85,7 @@ form.btn.confirm.signUp.addEventListener('click', () => form.registration())
 form.btn.confirm.signIn.addEventListener('click', () => form.authorization())
 form.btn.viePass.forEach(e => e.addEventListener('mousedown', () => form.viePass()))
 form.btn.viePass.forEach(e => e.addEventListener('mouseup', () => form.hidePass()))
-form.modal.conteiner.addEventListener('click', () => form.closeModal(event))
+form.modal.btn.addEventListener('click', () => form.closeModal(event))
 
 
 
@@ -99,7 +100,7 @@ table.conteiner.addEventListener('click', event => {
 table.conteiner.addEventListener('click', event => {
     if (event.target.dataset.table_btn_delete) {
         table.deleteTableItem()
-        location.reload()
+        
     }
 })
 table.conteiner.addEventListener('click', event => {

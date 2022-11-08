@@ -1,4 +1,5 @@
 let stateOfRegistration = false
+let stateOfAuthorization = false
 
 export class Form {
     constructor(options){
@@ -33,12 +34,21 @@ export class Form {
     createModal (text) {
         this.modal.conteiner.style.display = 'block'
         this.modal.text.innerText = text
+
     }
 
     closeModal(event) {
-        if (event.target == this.modal.conteiner || event.target == this.modal.text) {
+        if (this.modal.conteiner.classList.contains('table-active')) {
+            console.log(this.modal.content.firstChild.nextElementSibling)
+            this.modal.content.firstChild.nextElementSibling.remove()
+        }
+        this.modal.conteiner.classList.remove('table-active')
+        
+        if (event.target == this.modal.btn) {
             this.modal.conteiner.style.display = "none"
         }
+        
+        
     }
 
     getDataStorage(name) {
@@ -80,6 +90,7 @@ export class Form {
     authorization() { 
         if(this.isValidSignIn()) {
             this.createModal('Successful authorization')
+            stateOfAuthorization = true
         } else {
             this.createModal('Try another Email or Password')
         } 
@@ -174,43 +185,50 @@ export class Table {
     }
     
     viewTableItem() {
-        const storage = this.getStorage('registration')
-        const name = event.target.parentElement.previousElementSibling.innerText
-        const findItem = storage.find(e => e[0][1] === name)
-        this.createModal(findItem.join('\n').replaceAll(',', ': '))
-        
+        if (stateOfAuthorization) {
+            const storage = this.getStorage('registration')
+            const name = event.target.parentElement.previousElementSibling.innerText
+            const findItem = storage.find(e => e[0][1] === name)
+            this.createModal(findItem.join('\n').replaceAll(',', ': '))
+        } 
     }
 
     deleteTableItem() {
-        const storage = this.getStorage('registration')
-        const name = event.target.parentElement.previousElementSibling.innerText
-        const findItem = storage.findIndex(e => e[0][1] === name)
-        storage.splice(findItem, 1)
-        console.log(storage)
-        this.updateStorage('registration', storage)
+        if (stateOfAuthorization) {
+            const storage = this.getStorage('registration')
+            const name = event.target.parentElement.previousElementSibling.innerText
+            const findItem = storage.findIndex(e => e[0][1] === name)
+            storage.splice(findItem, 1)
+            console.log(storage)
+            this.updateStorage('registration', storage)
+            location.reload()
+        }
     }
 
-    editTableItem(btn) {
-        this.createModal("")
-        if (!this.modal.conteiner.classList.contains('table-active')) {
-            this.createTableInputs()
+    editTableItem() {
+        if (stateOfAuthorization) {
+            this.createModal("")
+            if (!this.modal.conteiner.classList.contains('table-active')) {
+                this.createTableInputs()
+            }
+            this.modal.conteiner.classList.add('table-active')
+            const inputsTable = document.querySelectorAll('input[data-table-input]')
+            inputsTable[0].value = ''
+            inputsTable[1].value = ''
+            inputsTable[2].value = ''
+            inputsTable[3].value = ''
+            this.tableEditTarget = event.target.parentElement.previousElementSibling.innerText
+            this.tableEditBtn = document.querySelector('.table__button')
+    
+    
+            if (!this.modal.conteiner.classList.contains('edit-table-btn')) {
+                this.tableEditBtn.addEventListener('click', () => this.onclickEditTable())
+            }
+            this.modal.conteiner.classList.add('edit-table-btn')
+            
+            console.log(this.tableEditTarget)
         }
-        this.modal.conteiner.classList.add('table-active')
-        const inputsTable = document.querySelectorAll('input[data-table-input]')
-        inputsTable[0].value = ''
-        inputsTable[1].value = ''
-        inputsTable[2].value = ''
-        inputsTable[3].value = ''
-        this.tableEditTarget = event.target.parentElement.previousElementSibling.innerText
-        this.tableEditBtn = document.querySelector('.table__button')
-
-
-        if (!this.modal.conteiner.classList.contains('edit-table-btn')) {
-            this.tableEditBtn.addEventListener('click', () => this.onclickEditTable())
-        }
-        this.modal.conteiner.classList.add('edit-table-btn')
         
-        console.log(this.tableEditTarget)
     }
      
 
