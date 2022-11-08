@@ -22,6 +22,7 @@ const buttonsSwitchForm = document.querySelectorAll('button[data-switch-form]')
 
 const modalConteiner = document.querySelector('#modalConteiner')
 const modalText = document.querySelector('#modalText')
+const modalContent = document.querySelector('#modalContent')
 // for test    
 const regexEmail = /([A-Za-z\.]{2,20})+\@([A-Za-z\.]{2,20})/
 const regexPassword = /([A-Za-z\.]{2,20})/
@@ -62,11 +63,12 @@ const tableBtnDeleteEl = document.querySelector('#tableBtnDelete')
 const tableBtnViewEl = document.querySelector('.table_btn_view')
 const tableConteinerEl = document.querySelector('#tableConteiner')
 
+
 const tableOption = {
     conteiner: tableConteinerEl,
     body: tableBodyEl,
     btn: {edit: tableBtnEditEl, delete: tableBtnDeleteEl, view: tableBtnViewEl},
-    modal: {conteiner: modalConteiner, text: modalText, textValue: ''}
+    modal: {conteiner: modalConteiner, content: modalContent, text: modalText, textValue: ''}
 }
 
 const table = new Table(tableOption)
@@ -88,6 +90,7 @@ form.modal.conteiner.addEventListener('click', () => form.closeModal(event))
 
 document.body.addEventListener('load', table.loadTable())
 form.btn.confirm.signUp.addEventListener('click', () => table.addInTable())
+
 table.conteiner.addEventListener('click', event => {
     if (event.target.dataset.table_btn_view) {
         table.viewTableItem()
@@ -99,6 +102,15 @@ table.conteiner.addEventListener('click', event => {
         location.reload()
     }
 })
+table.conteiner.addEventListener('click', event => {
+    if (event.target.dataset.table_btn_edit) {
+        table.editTableItem()
+        
+    }
+    
+})
+
+ 
 
 
 
