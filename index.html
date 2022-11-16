@@ -12,52 +12,52 @@
 </head>
 <body>
     
-    <div class="table_conteiner" id="tableConteiner">
+    <div class="table__signup_users" id="table-signup-users">
         
-    </div>
+    </div> 
+
+    <div class="form__wrapper">
 
 
-    <div id="conteiner">
-        <form class="form form__sign_in not_active" id="formSingIn" action="#">
+        <div class="form__container not_active" id="form-container-signup">
+            <h2 class="form__title">Welcome</h2>
 
-            <h2 class="form__heading">Welcome</h2>
-
-                <input class="form__input form__input_sign_in_email" id="emailSingIn" type="email" placeholder="Email">
-                <div class="form__input_conteiner">
-                    <input class="form__input form__input_sign_in_password" id="passwordSingIn" type="password" placeholder="Password">
-                    <button class="form__button_password_viewer" data-viewer-password></button>
+            <form class="form__signup" id="form-signup" action="js/script.js" method="post">
+                <input class="form__input input__signup_email" type="email" name="email" placeholder="Email">
+                <div class="form__signup_password_wrap">
+                    <input class="form__input input__signup_password" type="password" name="password" placeholder="Password">
+                    <button class="form__button_password_viewer"></button>
                 </div>
+                <input class="form__input input__signup_phone" type="tel" name="phone" placeholder="Phone">
+                <input class="form__input input__signup_country" type="text" name="country" placeholder="Country">
+                <input class="form__button input__signup_submit" type="submit" value="Registration">
+            </form>
 
-                <button class="form__button_forgot" id="buttonForgotPass" href="#">Forgot password?</button>
+            <span class="form__text">Have an account?</span>
+            <button class="form__button form__button_switch" data-switch-form>Sign in</button>
+        </div>
 
-                <button class="form__button form__button_sign_in" id="buttonConfirmSingIn">Log in</button>
-                <span class="form__border">Or</span>
-                <div>
-                    <button class="form__button form__button_google">Google</button>
-                    <button class="form__button form__button_github">GitHub</button>
+
+        <div class="form__container " id="form-container-signin">
+            <h2 class="form__title">Welcome</h2>
+
+            <form class="form__signin" id="form-signin" action="js/script.js" method="post">
+                <input class="form__input input__signin_email" type="email" name="email" placeholder="Email">
+                <div class="form__signup_password_wrap">
+                    <input class="form__input input__signin_password" type="password" name="password" placeholder="Password">
+                    <button class="form__button_password_viewer"></button>
                 </div>
-                <span class="form__span">Have no account yet?</span>
-                <button class="form__button form__button_switch" id="button2" data-switch-form>Sign up</button>
-        </form>
+                <input class="form__button input__signin_submit" type="submit" value="Log in">
+            </form>
 
-
-        <form class="form form__sign_up " id="formSingUp" action="#">
-
-            <h2 class="form__heading">Welcome</h2>
-
-                <input class="form__input form__input_sign_up_email" id="emailSingUp" type="email" placeholder="Email">
-                <div class="form__input_conteiner">
-                    <input class="form__input form__input_sign_up_password" id="passwordSingUp" type="password" placeholder="Password">
-                    <button class="form__button_password_viewer" data-viewer-password></button>
-                </div>
-                <input class="form__input form__input_sign_up_phone" id="phoneSignUp" type="tel" placeholder="Phone">
-                <input class="form__input form__input_sign_up_country" id="citySignUp" type="text" placeholder="Country">
-
-
-                <button class="form__button form__button_sign_up" id="buttonConfirmSingUp">Registration</button>
-                <span class="form__span">Have an account?</span>
-                <button class="form__button form__button_switch" id="button1" data-switch-form>Sign in</button>
-        </form>
+            <span class="form__border">Or</span>
+            <div>
+                <button class="form__button form__button_google">Google</button>
+                <button class="form__button form__button_github">GitHub</button>
+            </div>
+            <span class="form__text">Have no account yet?</span>
+            <button class="form__button form__button_switch" data-switch-form>Sign up</button>
+        </div>
 
         <div class="modal" id="modalConteiner">
             <div class="modal__content" id="modalContent">
@@ -68,6 +68,6 @@
 
     </div>
 
-    <script type="module" src="./js/index.js"></script>
+    <script type="module" src="./js/script.js"></script>
 </body>
 </html>

@@ -6,142 +6,6 @@ body
     display: grid
     justify-content: center
 
-
-//form
-.form
-    border-radius: 20px
-    padding: 30px 50px 0px 50px
-    background-color: white
-    display: flex
-    flex-shrink: 0
-    flex-direction: column
-    align-items: center
-    width: 370px
-    height: 550px
-
-    .form__heading
-        margin: 0px 0px 50px
-        font-size: 24px
-        font-weight: 600
-
-    .form__input
-        border: 1px solid #0000003b
-        border-radius: 5px
-        margin: 7px 0px
-        padding-left: 40px
-        width: 316px
-        height: 40px
-        background-size: 24px 24px
-    
-    .form__input_conteiner
-        display: flex
-        align-items: center
-        position: relative
-
-    .form__input_sign_in_email, .form__input_sign_up_email
-        background: url('img/form_email.png') no-repeat center left 8px
-
-    .form__input_sign_in_password, .form__input_sign_up_password
-        background: url('img/form_pass.png') no-repeat center left 8px
-
-    .form__input_sign_up_phone
-        background: url('img/form_phone.png') no-repeat center left 8px
-        background-size: 18px 18px
-
-    .form__input_sign_up_country
-        background: url('img/form_country.png') no-repeat center left 8px
-        background-size: 18px 18px
-    
-    .form__button_password_viewer
-        background: url('img/form_pass_eye.png') no-repeat center
-        background-size: 21px 21px
-        width: 28px
-        height: 20px
-        padding: 0
-        position: absolute
-        right: 8px
-        border: none
-        cursor: pointer
-    .form__button_password_viewer:hover
-        background: url('img/form_pass_eye_b.png') no-repeat center
-
-    .form__button_forgot
-        background: none
-        border: none
-        cursor: pointer
-        position: relative
-        right: 6px
-        margin-top: 6px
-        font-size: 14px
-        text-decoration: none
-        align-self: flex-end
-        color: #6F74DD
-    .form__button_forgot:hover
-        text-decoration: underline
-
-    .form__button
-        border: 1px solid #3949AB
-        border-radius: 40px
-        width: 358px
-        height: 40px
-        margin: 32px 0px 8px 0px
-        font-family: inherit
-        cursor: pointer
-        color: #fff
-        background: #3949AB
-
-    .form__button_switch, .form__button_google, .form__button_github
-        margin: 16px
-        background-color:#fff
-        color: #3949AB
-
-    .form__button_switch:hover, .form__button_google:hover, .form__button_github:hover
-        background-color:#3949AB
-        color: #fff
-
-    .form__button_google, .form__button_github
-        width: 174px
-        padding-left: 32px
-        margin: 8px 3px 0px 3px
-
-    .form__button_google
-        background: url('img/google.png') no-repeat center left 48px
-
-    .form__button_github
-        background: url('img/github.png') no-repeat center left 48px
-
-    .form__border
-        display: flex
-        justify-content: flex-end
-        align-items: center
-        font-size: 14px
-        color: #828282
-    .form__border::before
-        content: ""
-        position: relative
-        right: 8px
-        width: 93px
-        height: 1px
-        background-color: #E6E9FA
-    .form__border::after
-        content: ""
-        position: relative
-        left: 8px
-        width: 93px
-        height: 1px
-        background-color: #E6E9FA
-
-    .form__span
-        margin-top: 24px 
-        color: #828282
-        font-size: 14px
-
-//class for forms
-.not_active 
-    display: none
-    position: absolute
-    
-
 //modal
 .modal 
     display: none
@@ -172,7 +36,7 @@ body
     animation-name: animatetop
     animation-duration: 0.4s
 
-.modal__btn
+.modal__btn, .table__button
     cursor: pointer
     width: 100px
     justify-self: center
@@ -180,13 +44,13 @@ body
     background-color: #c3e0bb
 
 //table
-.table_conteiner
+.table__signup_users
     border-radius: 10px
     display: flex
     flex-direction: column
-    margin-bottom: 20px
+    margin-bottom: 10px
     background-color: white
-.table_item
+.table__user
     display: flex
     justify-content: space-between
     padding: 20px
@@ -201,15 +65,141 @@ body
     display: grid
     justify-content: center
     align-items: center
-    .modal__table_title
-        text-align: center
+    text-align: center
     .modal__table_inputs
-        display: grid
+        display: flex
+        flex-direction: column
+        align-items: center
+       
 .table__input
     margin: 5px 10px
 .table__button
-    position: relative
+    background-color: #edd1d1
     margin-top: 20px
-    right: 20px
-    justify-self: end
     
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////FORM//////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+$color_blue: #3949AB
+$color_white: #ffffff
+
+.form__wrapper
+    display: grid
+
+.form__container
+    width: 370px
+    height: 550px
+    display: flex
+    align-items: center
+    flex-direction: column
+    border-radius: 20px
+    margin: 10px 0px
+    padding: 10px 50px 0px 50px
+    background-color: $color_white
+    .form__title
+        text-align: center
+        margin-bottom: 40px
+    .form__signup, .form__signin
+        display: flex
+        flex-direction: column
+        align-items: center
+
+        
+    .form__input
+        width: 310px
+        height: 40px
+        border-radius: 5px
+        border: 1px solid #0000003b
+        margin: 7px auto
+        padding-left: 40px
+    .input__signup_email, .input__signin_email
+        background: url('img/form_email.png') no-repeat center left 8px
+    .input__signup_password, .input__signin_password
+        background: url('img/form_pass.png') no-repeat center left 8px
+    .input__signup_phone
+        background: url('img/form_phone.png') no-repeat center left 8px
+        background-size: 18px 18px
+    .input__signup_country
+        background: url('img/form_country.png') no-repeat center left 8px
+        background-size: 18px 18px
+
+
+
+    .form__button
+        width: 340px
+        height: 40px
+        font-family: inherit
+        margin-top: 20px
+        cursor: pointer
+        border-radius: 40px
+        border: 1px solid $color_blue
+        color: $color_white
+        background: $color_blue
+    .form__button_switch
+        margin-top: 0px
+        background: $color_white
+        color: $color_blue
+    .form__signup_password_wrap
+        display: flex
+        align-items: center
+        position: relative
+    .form__button_password_viewer
+        width: 28px
+        height: 20px
+        position: absolute
+        padding: 0
+        right: 8px
+        border: none
+        cursor: pointer
+        background-size: 21px 21px
+        background: url('img/form_pass_eye.png') no-repeat center
+    .form__button_password_viewer:hover
+        background: url('img/form_pass_eye_b.png') no-repeat center
+    
+    .form__button_google, .form__button_github, .form__button_switch:hover
+        background: $color_blue
+        color: $color_white
+    .form__button_google, .form__button_github
+        font-family: inherit
+        color: $color_blue
+        width: 165px
+        padding-left: 30px
+        margin: 0px 3px 0px 3px
+    .form__button_google
+        background: url('img/google.png') no-repeat center left 40px
+    .form__button_github
+        background: url('img/github.png') no-repeat center left 40px
+
+
+    .form__border
+        display: flex
+        justify-content: flex-end
+        align-items: center
+        margin: 8px 0px
+        font-size: 14px
+        color: #828282
+    .form__border::before
+        content: ""
+        position: relative
+        right: 8px
+        width: 93px
+        height: 1px
+        background-color: #E6E9FA
+    .form__border::after
+        content: ""
+        position: relative
+        left: 8px
+        width: 93px
+        height: 1px
+        background-color: #E6E9FA
+    .form__text
+        margin: 35px 0px 10px
+        color: #828282
+        font-size: 14px
+
+
+
+.not_active 
+    display: none
+    position: absolute
