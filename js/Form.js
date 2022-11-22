@@ -9,6 +9,10 @@ export class Form {
         this.btn = options.btn
         this.nameOfStorage = options.nameOfStorage
         this.modal = options.modal
+        this.inputs = options.inputs
+    }
+    isValid() {
+        
     }
 
     createModal(text) {
@@ -83,4 +87,7 @@ export class Form {
         }
         this.form.signin.reset()
     }
+
 }
+
+

@@ -29,7 +29,6 @@ export class Table {
         this.formData = new FormData(form)
         let array = Array.from(new FormData(form))
         return Object.fromEntries(array)
-        
     }
 
     getLocalStorage(key) {
@@ -113,7 +112,6 @@ export class Table {
     updateStorage(key, item) {
         localStorage.setItem(key, JSON.stringify(item))
     }
-
 
     createModalTable(event) {
         if (isAuthorized) {

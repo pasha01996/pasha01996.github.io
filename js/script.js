@@ -4,6 +4,9 @@ import { Table } from "./Table.js"
 ////////////////////////////////form
 
 const regexEmail = /([A-Za-z\.]{2,20})+\@([A-Za-z\.]{2,20})/
+
+
+
 const regexPassword = /([A-Za-z\.]{2,20})/
 const regexPhone = /([A-Za-z\.]{2,20})/
 const regexCity = /([A-Za-z\.]{2,20})/
@@ -30,6 +33,7 @@ const formOption = {
     regExp: {email: regexEmail, password: regexPassword, phone: regexPhone, city: regexCity},
     btn: {switch:buttonsSwitchForm},
     modal: {container: modalConteiner, content: modalContent, btn: modalBtn, text:modalText, textValue: ''},
+    inputs: [new Control('id', [minLength])], 
     nameOfStorage: 'registration'
 }
 
@@ -47,6 +51,8 @@ const tableBtnDeleteEl = document.querySelector('#tableBtnDelete')
 const tableBtnViewEl = document.querySelector('.table_btn_view')
 const tableSignupUsers = document.querySelector('#table-signup-users')
 
+
+console.log(tableBodyEl)
 
 const tableOption = {
     nameOfStorage: 'registration',
