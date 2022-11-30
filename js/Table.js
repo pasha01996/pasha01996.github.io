@@ -1,4 +1,4 @@
-import {isAuthorized, isRegistered} from "./Form.js"
+import {isAuthorized, isRegistered} from "./Page.js"
 
 
 export class Table {

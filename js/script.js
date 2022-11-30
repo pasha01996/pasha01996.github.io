@@ -1,15 +1,12 @@
+
 import {Form} from "./Form.js"
-import { Table } from "./Table.js"
-
-////////////////////////////////form
-
-const regexEmail = /([A-Za-z\.]{2,20})+\@([A-Za-z\.]{2,20})/
-
+import {Control} from "./Control.js"
+import {checks} from "./module.js"
+import {Table} from "./Table.js"
+import {Page} from "./Page.js"
 
 
-const regexPassword = /([A-Za-z\.]{2,20})/
-const regexPhone = /([A-Za-z\.]{2,20})/
-const regexCity = /([A-Za-z\.]{2,20})/
+
 //regex
 // regexEmail = /^([A-Za-z0-9_\-\.]{3,20})+\@([A-Za-z0-9_\-\.]{3,8})+\.([A-Za-z]{2,4})/
 // regexPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
@@ -18,8 +15,12 @@ const regexCity = /([A-Za-z\.]{2,20})/
 const formSigninEl = document.getElementById('form-signin')
 const formSignupEl = document.getElementById('form-signup')
 const buttonsSwitchForm = document.querySelectorAll('button[data-switch-form]')
-const formContainerSignupEl = document.getElementById('form-container-signup')
-const formContainerSigninEl = document.getElementById('form-container-signin')
+const inputSubmitSignup = document.getElementById('inputSubmitSignup')
+const inputSubmitSignin = document.getElementById('inputSubmitSignin')
+const btnSwitchSignin = document.getElementById('switch-signin')
+const btnSwitchSignup =document.getElementById('switch-signup')
+
+
 
 const modalConteiner = document.querySelector('#modalConteiner')
 const modalText = document.querySelector('#modalText')
@@ -27,24 +28,38 @@ const modalContent = document.querySelector('#modalContent')
 const modalBtn = document.querySelector('#modalBnt')
 
 
-const formOption = {
-    container: {signin: formContainerSigninEl, signup: formContainerSignupEl},
-    form: {signin: formSigninEl, signup: formSignupEl},
-    regExp: {email: regexEmail, password: regexPassword, phone: regexPhone, city: regexCity},
-    btn: {switch:buttonsSwitchForm},
-    modal: {container: modalConteiner, content: modalContent, btn: modalBtn, text:modalText, textValue: ''},
-    inputs: [new Control('id', [minLength])], 
+
+//--------------------------------------------form--------------------------------------------
+const formOptionSignup = {
+    inputs:[new Control('inputEmailSignup', [checks.includesAt, checks.minLengthEight]), 
+            new Control('inputPassSignup', [checks.minLengthEight]),
+            new Control('inputPhoneSignup', [checks.minLengthEight, checks.firstLetterPlus]),
+            new Control('inputCountrySignup', [checks.minLengthEight])],
+}
+
+const formOptionSignin = {
+    inputs: [new Control('inputEmailSignin', [checks.includesAt, checks.minLengthEight]),
+            new Control('inputPassSignin', [checks.minLengthEight])],
+}
+
+//----------------------------------------page---------------------------------------------------
+const psgeOptions = {
+    formSignup: new Form('form-container-signup', formOptionSignup),
+    formSignin: new Form('form-container-signin', formOptionSignin),
+    btn: {  submitSignin: inputSubmitSignin, submitSignup: inputSubmitSignup,
+            switch: [btnSwitchSignin, btnSwitchSignup],
+        },
     nameOfStorage: 'registration'
 }
 
-const form = new Form(formOption)
+const page = new Page(psgeOptions)
 
-form.form.signup.addEventListener('submit', (event) => form.registration(event))
-form.form.signin.addEventListener('submit', (event) => form.authorization(event))
-form.btn.switch.forEach(e => e.addEventListener('click', () => form.switchForm()))
+page.btn.switch.forEach(btn => btn.addEventListener('click', () => page.switchForm()))
+page.btn.submitSignup.addEventListener('click', (event) => page.authorization(event))
+page.btn.submitSignin.addEventListener('click', (event) => page.registration(event))
 
 
-////////////////////////////table
+//------------------------------------------table-------------------------------------------------
 const tableBodyEl = document.querySelectorAll('[data-body]')
 const tableBtnEditEl = document.querySelector('#tableBody')
 const tableBtnDeleteEl = document.querySelector('#tableBtnDelete')
@@ -52,7 +67,7 @@ const tableBtnViewEl = document.querySelector('.table_btn_view')
 const tableSignupUsers = document.querySelector('#table-signup-users')
 
 
-console.log(tableBodyEl)
+// console.log(tableBodyEl)
 
 const tableOption = {
     nameOfStorage: 'registration',
