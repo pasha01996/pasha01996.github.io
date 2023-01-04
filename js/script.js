@@ -4,7 +4,7 @@ import {Control} from "./Control.js"
 import {checks} from "./module.js"
 import {Table} from "./Table.js"
 import {Page} from "./Page.js"
-
+import {radio} from "./radio.js"
 
 
 //regex
@@ -12,26 +12,14 @@ import {Page} from "./Page.js"
 // regexPass = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
 // regexPhone = /(\+)(\d){12}/
 // regexCity = /([A-Za-z\.]{3,20})/
-const formSigninEl = document.getElementById('form-signin')
-const formSignupEl = document.getElementById('form-signup')
-const buttonsSwitchForm = document.querySelectorAll('button[data-switch-form]')
 const inputSubmitSignup = document.getElementById('inputSubmitSignup')
 const inputSubmitSignin = document.getElementById('inputSubmitSignin')
 const btnSwitchSignin = document.getElementById('switch-signin')
-const btnSwitchSignup =document.getElementById('switch-signup')
-
-
-
-const modalConteiner = document.querySelector('#modalConteiner')
-const modalText = document.querySelector('#modalText')
-const modalContent = document.querySelector('#modalContent')
-const modalBtn = document.querySelector('#modalBnt')
-
-
+const btnSwitchSignup = document.getElementById('switch-signup')
 
 //--------------------------------------------form--------------------------------------------
 const formOptionSignup = {
-    inputs:[new Control('inputEmailSignup', [checks.includesAt, checks.minLengthEight]), 
+    inputs:[new Control('inputEmailSignup', [checks.includesAt, checks.minLengthEight]),
             new Control('inputPassSignup', [checks.minLengthEight]),
             new Control('inputPhoneSignup', [checks.minLengthEight, checks.firstLetterPlus]),
             new Control('inputCountrySignup', [checks.minLengthEight])],
@@ -42,70 +30,88 @@ const formOptionSignin = {
             new Control('inputPassSignin', [checks.minLengthEight])],
 }
 
-//----------------------------------------page---------------------------------------------------
-const psgeOptions = {
-    formSignup: new Form('form-container-signup', formOptionSignup),
-    formSignin: new Form('form-container-signin', formOptionSignin),
-    btn: {  submitSignin: inputSubmitSignin, submitSignup: inputSubmitSignup,
-            switch: [btnSwitchSignin, btnSwitchSignup],
-        },
-    nameOfStorage: 'registration'
+const callbackEditTable = () => {
+   const formOptionEditTadle = {
+        inputs: [new Control('inputEmailEdit', [checks.includesAt, checks.minLengthEight]), 
+                new Control('inputPassEdit', [checks.minLengthEight]),
+                new Control('inputPhoneEdit', [checks.minLengthEight, checks.firstLetterPlus]),
+                new Control('inputCountryEdit', [checks.minLengthEight]),
+                new Control('radio-marital-status', 'not checks'),
+                new Control('gender-select', 'not checks'),
+                new Control('color-mail', 'not checks'),
+                new Control('description', 'not checks'),
+                new Control('age-user', 'not checks'),
+                new Control('checkbox-interests', 'not checks')]}
+                
+
+    page.elements.formEditTable = new Form('form-container-edit', formOptionEditTadle)
 }
-
-const page = new Page(psgeOptions)
-
-page.btn.switch.forEach(btn => btn.addEventListener('click', () => page.switchForm()))
-page.btn.submitSignup.addEventListener('click', (event) => page.authorization(event))
-page.btn.submitSignin.addEventListener('click', (event) => page.registration(event))
-
-
-//------------------------------------------table-------------------------------------------------
-const tableBodyEl = document.querySelectorAll('[data-body]')
+//-----------------------------------------Table----------------------------------------------
 const tableBtnEditEl = document.querySelector('#tableBody')
 const tableBtnDeleteEl = document.querySelector('#tableBtnDelete')
 const tableBtnViewEl = document.querySelector('.table_btn_view')
-const tableSignupUsers = document.querySelector('#table-signup-users')
+const tableUsers = document.querySelector('#table-users')
 
+const modalConteiner = document.querySelector('#modalConteiner')
+const modalText = document.querySelector('#modalText')
+const modalContent = document.querySelector('#modalContent')
+const modalBtn = document.querySelector('#modalBnt')
 
-// console.log(tableBodyEl)
 
 const tableOption = {
-    nameOfStorage: 'registration',
-    container: tableSignupUsers,
-    body: tableBodyEl,
+    container: tableUsers,
     btn: {edit: tableBtnEditEl, delete: tableBtnDeleteEl, view: tableBtnViewEl},
-    modal: {container: modalConteiner, content: modalContent, text: modalText, btn: modalBtn, textValue: ''}
+    modal: {container: modalConteiner, content: modalContent, text: modalText, btn: modalBtn, textValue: ''},
+    nameOfStorage: 'registration'
 }
 
-const table = new Table(tableOption)
+//----------------------------------------page---------------------------------------------------
+const pageOptions = {
+    elements: {
+        formSignin: new Form('form-container-signin', formOptionSignin),
+        formSignup: new Form('form-container-signup', formOptionSignup),
+        table: new Table('table-users', tableOption),
+    },
 
-table.modal.btn.addEventListener('click', (event) => table.closeModal(event))
-document.body.addEventListener('load', table.createTable())
+    btn: {  submitSignin: inputSubmitSignin, submitSignup: inputSubmitSignup,
+            switchSignin: btnSwitchSignin, switchSignup: btnSwitchSignup,
+        },             
 
-form.form.signup.addEventListener('submit', () => table.addInTable())
+    nameOfStorage: 'registration'
+}
 
-table.container.addEventListener('click', (event) => {
+const page = new Page(pageOptions)
+
+page.btn.switchSignin.addEventListener('click', () => page.switchToElement('form-container-signup'))
+page.btn.switchSignup.addEventListener('click', () => page.switchToElement('form-container-signin'))
+
+page.btn.submitSignup.addEventListener('click', (event) => page.registration(event))
+page.btn.submitSignin.addEventListener('click', (event) => page.authorization(event))
+
+page.elements.table.modal.btn.addEventListener('click', (event) => page.elements.table.closeModal(event))
+page.elements.table.container.addEventListener('click', (event) => {
     if (event.target.dataset.tableBtnView) {
-        table.viewTableItem(event)
+        page.elements.table.viewTableItem(event)
     }
 })
 
-table.container.addEventListener('click', event => {
-    if (event.target.dataset.tableBtnDelete) {
-        table.deleteTableItem(event)
-    }
-})
+// table.container.addEventListener('click', event => {
+//     if (event.target.dataset.tableBtnDelete) {
+//         table.deleteTableItem(event)
+//     }
+// })
 
-table.container.addEventListener('click', event => {
+page.elements.table.container.addEventListener('click', event => {
     if (event.target.dataset.tableBtnEdit) {
-        table.createModalTable(event)
+        page.createModalTable(event)
+        callbackEditTable()
+        radio()
+        console.log(page.elements.formEditTable)
     }
 })
 
-table.modal.container.addEventListener('click', event => {
+page.elements.table.modal.container.addEventListener('click', event => {
     if(event.target.dataset.tableBtnConfirmedit) {
-        table.onclickEditTable()
+        page.onclickEditTable()
     }
 })
-
-

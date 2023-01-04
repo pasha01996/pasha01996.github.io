@@ -2,7 +2,7 @@ body
     font-family: 'Open Sans', sans-serif
     font-weight: normal
     margin-top: 50px
-    background: rgba(57, 73, 171)
+    background: #806fef
     display: grid
     justify-content: center
 
@@ -24,14 +24,14 @@ body
     position: relative
     background-color: #fefefe
     margin: auto
-    padding: 0
+    padding: 20px 0
     border: 1px solid #888
     border-radius: 10px
     width: 500px
-    height: 250px
+    height: 900px
     display: grid
     justify-content: center
-    align-items: center
+    // align-items: center
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
     animation-name: animatetop
     animation-duration: 0.4s
@@ -40,11 +40,15 @@ body
     cursor: pointer
     width: 100px
     justify-self: center
+    align-self: flex-end
     margin: 10px
     background-color: #c3e0bb
+.table__button
+    align-self: center
 
 //table
 .table__signup_users
+    width: 500px
     border-radius: 10px
     display: flex
     flex-direction: column
@@ -205,3 +209,28 @@ $color_white: #ffffff
 .not_active 
     display: none
     position: absolute
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////RADIO//////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+.radio_container
+    display: grid
+    justify-content: start
+    align-content: space-between
+    height: 50px
+.radio_married::after
+    content: 'married'
+    font-size: 16px
+    position: relative
+    bottom: 3px
+    left: 20px
+
+.radio_single::after
+    content: 'single'
+    font-size: 16px
+    position: relative
+    bottom: 3px
+    left: 20px

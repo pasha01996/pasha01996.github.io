@@ -2,11 +2,13 @@ import {isAuthorized, isRegistered} from "./Page.js"
 
 
 export class Table {
-    constructor(options) {
-        this.storageRegistration = options.nameOfStorage
+    constructor(id, options) {
+        this.id = id
         this.container = options.container
         this.btn = options.btn
         this.modal = options.modal
+        this.nameOfStorage = options.nameOfStorage
+        this.localStorage = JSON.parse(localStorage.getItem(this.nameOfStorage) || '[]')
     }
 
     createModal(text) {
@@ -25,34 +27,7 @@ export class Table {
         } 
     }
 
-    getFormData(form) {
-        this.formData = new FormData(form)
-        let array = Array.from(new FormData(form))
-        return Object.fromEntries(array)
-    }
-
-    getLocalStorage(key) {
-        return JSON.parse(localStorage.getItem(key))
-    }
-
-    createTableInputs() {
-        return this.modal.content.insertAdjacentHTML('afterbegin', `
-        <div class="modal__table">
-            <span class="modal__table_title">Edit data:</span>
-            <div class="modal__table_inputs">
-                <form id="modal-table-form" action="js/script.js" method="post">
-                    <input class="table__input_email" name="email" type="email" placeholder="Email">
-                    <input class="table__input_password" name="password" type="text" placeholder="Password">
-                    <input class="table__input_phone" name="phone" type="text" placeholder="Phone">
-                    <input class="table__input_country" name="country" type="text" placeholder="Country">
-                </form>
-                <button class="table__button" data-table-btn-confirmedit="true">edit</button>
-            </div>
-        </div>
-        `)
-    }
-    
-    createItemTable(userEmail) {
+    createCell(userEmail) {
         if (userEmail) {
             return this.container.insertAdjacentHTML('afterbegin', `
             <div class="table__user">
@@ -68,28 +43,45 @@ export class Table {
         }
     }
 
-    createTable() {
-        const registeredUsers = this.getLocalStorage(this.storageRegistration)
-        if (registeredUsers) {
-            for(let i = 0; i < registeredUsers.length; i++) {
-                this.createItemTable(registeredUsers[i].email)
+    // createEditForm(element, userEmail) {
+    //     element.insertAdjacentHTML('afterbegin', `
+    //     <div class="modal__table" id="form-container-edit">
+    //         <span class="modal__table_title">Edit data:</span>
+    //         <div class="modal__table_inputs">
+    //             <form id="modal-table-form" action="#">
+    //                 <input class="table__input_email" id="inputEmailEdit" name="email" type="email" placeholder="Email">
+    //                 <input class="table__input_password" id="inputPassEdit" name="password" type="text" placeholder="Password">
+    //                 <input class="table__input_phone" id="inputPhoneEdit" name="phone" type="text" placeholder="Phone">
+    //                 <input class="table__input_country" id="inputCountryEdit" name="country" type="text" placeholder="Country">
+    //             </form>
+    //             <button class="table__button" data-table-btn-confirmedit="${userEmail}">edit</button>
+    //         </div>
+    //     </div>
+    //     `)
+    // }
+    
+    
+
+    createTable(localStorage) {
+        if (localStorage) {
+            for(let i = 0; i < localStorage.length; i++) {
+                this.createCell(localStorage[i].email)
             }
         }  
     }
 
-    addInTable() {
-        if (isRegistered) {
-            const storage = this.getLocalStorage(this.storageRegistration)
-            const registeredUser = storage[storage.length - 1].email
-            this.createItemTable(registeredUser)
-        }   
-    }
+    // addCellInTable() {
+    //     if (isRegistered) {
+    //         const storage = this.getLocalStorage(this.nameOfStorage)
+    //         const registeredUser = storage[storage.length - 1].email
+    //         this.createCell(registeredUser)
+    //     }
+    // }
 
     viewTableItem(event) {
         if (isAuthorized) {
-            const storage = this.getLocalStorage(this.storageRegistration)
             const userEmail = event.target.dataset.tableBtnView
-            const findItem = storage.find(e => e.email === userEmail)
+            const findItem = this.localStorage.find(user => user.email === userEmail)
             this.createModal(Object.entries(findItem).join('\n').replaceAll(',', ': '))
         } else {
             this.createModal('Please login for using this interface')
@@ -98,39 +90,34 @@ export class Table {
 
     deleteTableItem(event) {
         if (isAuthorized) {
-            const storage = this.getLocalStorage(this.storageRegistration)
+            const storage = this.getLocalStorage(this.nameOfStorage)
             const userEmail = event.target.dataset.tableBtnDelete
             const user = storage.findIndex(e => e.email === userEmail)
             storage.splice(user, 1)
-            this.updateStorage(this.storageRegistration, storage)
+            this.updateStorage(this.nameOfStorage, storage)
             location.reload()
         } else {
             this.createModal('Please login for using this interface')
         }
     }
 
-    updateStorage(key, item) {
-        localStorage.setItem(key, JSON.stringify(item))
-    }
-
-    createModalTable(event) {
-        if (isAuthorized) {
-            this.createModal("")
-            !this.modal.container.classList.contains('table-active') && this.createTableInputs()
-            this.modal.container.classList.add('table-active')
-            this.emailUserToFind = event.target.dataset.tableBtnEdit
-        } else {
-            this.createModal('Please login for using this interface')
-        }
-    }
+    // createModalTable(event) {
+    //     if (isAuthorized) {
+    //         this.emailUserToFind = event.target.dataset.tableBtnEdit
+    //         this.createModal("")
+    //         this.createEditForm(this.emailUserToFind)
+    //         this.modal.container.classList.add('table-active')
+    //     } else {
+    //         this.createModal('Please login for using this interface')
+    //     }
+    // }
      
-    onclickEditTable() {
-        const registeredUsers = this.getLocalStorage(this.storageRegistration)
-        this.modal.form = document.querySelector('#modal-table-form')
-        const dataFormModal = this.getFormData(this.modal.form)
-        const findUser = registeredUsers.findIndex(user => user.email === this.emailUserToFind)
-        registeredUsers[findUser] = dataFormModal
-        localStorage.setItem(this.storageRegistration, JSON.stringify(registeredUsers))
-        location.reload()
-    }   
+    // onclickEditTable() {
+    //     this.modal.form = document.querySelector('#modal-table-form')
+    //     const dataFormModal = this.getFormData(this.modal.form)
+    //     const findUser = this.localStorage.findIndex(user => user.email === this.emailUserToFind)
+    //     this.localStorage[findUser] = dataFormModal
+    //     localStorage.setItem(this.nameOfStorage, JSON.stringify(this.localStorage))
+    //     location.reload()
+    // }   
 }
