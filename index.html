@@ -12,54 +12,67 @@
 </head>
 <body>
     
-    <div class="modal">
-        <div class="modal__content">
-                <span class="modal__text"></span>
+    <div class="table__signup_users" id="table-users">
+        
+    </div> 
+
+    
+    <div class="form__wrapper">
+
+
+        <div class="form__container not_active" id="form-container-signup">
+            <h2 class="form__title">Welcome</h2>
+
+            <form class="form__signup" id="form-signup" action="/js/Form.js" method="post">
+                <input class="form__input input__signup_email" id="inputEmailSignup" type="email" name="email" placeholder="Email">
+                <div class="form__signup_password_wrap">
+                    <input class="form__input input__signup_password" id="inputPassSignup" type="password" name="password" placeholder="Password">
+                    <button class="form__button_password_viewer"></button>
+                </div>
+                <input class="form__input input__signup_phone" id="inputPhoneSignup" type="tel" name="phone" placeholder="Phone">
+                <input class="form__input input__signup_country" id="inputCountrySignup" type="text" name="country" placeholder="Country">
+                <input class="form__button input__signup_submit" id="inputSubmitSignup" type="submit" value="Registration">
+            </form>
+
+            <span class="form__text">Have an account?</span>
+            <button class="form__button form__button_switch" id="switch-signup">Sign in</button>
         </div>
-    </div>
 
 
-    <form class="form form__sign_in" action="#">
 
-        <h2 class="form__heading">Welcome</h2>
+        <div class="form__container " id="form-container-signin">
+            <h2 class="form__title">Welcome</h2>
 
-            <input class="form__input form__input_sign_in_email" type="email" placeholder="Email">
-            <div class="form__input_conteiner">
-                <input class="form__input form__input_sign_in_password" type="password" placeholder="Password">
-                <button class="form__button_password_viewer"></button>
-            </div>
+            <form class="form__signin" id="form-signin" action="#">
+                <input class="form__input input__signin_email" id="inputEmailSignin" type="email" name="email" placeholder="Email" id="email">
+                <div class="form__signup_password_wrap">
+                    <input class="form__input input__signin_password" id="inputPassSignin" type="password" name="password" placeholder="Password">
+                    <button class="form__button_password_viewer"></button>
+                </div>
+                <input class="form__button input__signin_submit" id="inputSubmitSignin" type="submit" value="Log in">
+            </form>
 
-            <a class="form__link_forgot" href="#">Forgot password?</a>
-
-            <button class="form__button form__button_sign_in">Log in</button>
             <span class="form__border">Or</span>
             <div>
                 <button class="form__button form__button_google">Google</button>
                 <button class="form__button form__button_github">GitHub</button>
             </div>
-            <span class="form__span">Have no account yet?</span>
-            <button class="form__button form__button_switch">Sign up</button>
-    </form>
+            <span class="form__text">Have no account yet?</span>
+            <button class="form__button form__button_switch" id="switch-signin">Sign up</button>
+        </div>
 
-
-    <form class="form form__sign_up not_active" action="#">
-
-        <h2 class="form__heading">Welcome</h2>
-
-            <input class="form__input form__input_sign_up_email" type="email" placeholder="Email">
-            <div class="form__input_conteiner">
-                <input class="form__input form__input_sign_up_password" type="password" placeholder="Password">
-                <button class="form__button_password_viewer"></button>
+        <div class="modal" id="modalConteiner">
+            <div class="modal__content" id="modalContent">
+                    <span class="modal__text" id="modalText"></span>
+                    <button class="modal__btn" id="modalBnt">close</button>
             </div>
-            <input class="form__input form__input_sign_up_phone" type="tel" placeholder="Phone">
-            <input class="form__input form__input_sign_up_country" type="text" placeholder="Country">
+        </div>
 
+    </div>
 
-            <button class="form__button form__button_sign_up">Registration</button>
-            <span class="form__span">Have an account?</span>
-            <button class="form__button form__button_switch">Sign in</button>
-    </form>
-
-    <script src="index.js"></script>
+    
+    
+    <script type="module" src="./js/script.js"></script>
+    
 </body>
 </html>
